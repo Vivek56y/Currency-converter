@@ -1,0 +1,156 @@
+/* Reset some default styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #f0f2f5;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #333;
+}
+
+.container {
+  background: white;
+  padding: 30px 40px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  width: 350px;
+  text-align: center;
+}
+
+h2 {
+  margin-bottom: 8px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #2c3e50;
+}
+
+h4 {
+  margin-bottom: 20px;
+  color: #7f8c8d;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.amount p,
+.from p,
+.to p {
+  margin-bottom: 6px;
+  font-weight: 600;
+  font-size: 14px;
+  color: #34495e;
+  text-align: left;
+}
+
+.amount input {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 16px;
+  border-radius: 6px;
+  border: 1.5px solid #ccc;
+  transition: border-color 0.3s ease;
+}
+
+.amount input:focus {
+  outline: none;
+  border-color: #2980b9;
+}
+
+.dropdown {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.from, .to {
+  flex: 1;
+  text-align: left;
+}
+
+.select-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1.5px solid #ccc;
+  border-radius: 6px;
+  padding: 6px 10px;
+  background: #fafafa;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+
+.select-container:hover {
+  border-color: #2980b9;
+}
+
+.select-container img {
+  width: 32px;
+  height: 20px;
+  object-fit: cover;
+  border-radius: 3px;
+  user-select: none;
+}
+
+select {
+  border: none;
+  background: transparent;
+  font-size: 16px;
+  appearance: none; /* Remove default arrow */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  cursor: pointer;
+  width: 100%;
+  padding: 6px 0;
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+select:focus {
+  outline: none;
+}
+
+.msg {
+  font-weight: 600;
+  font-size: 16px;
+  color: #2980b9;
+  min-height: 24px;
+  margin-top: 5px;
+}
+
+button {
+  background: #2980b9;
+  color: white;
+  border: none;
+  padding: 12px;
+  font-weight: 700;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  user-select: none;
+}
+
+button:hover {
+  background: #1c5980;
+}
+
+/* Responsive - smaller devices */
+@media (max-width: 400px) {
+  .container {
+    width: 90vw;
+    padding: 20px;
+  }
+}
