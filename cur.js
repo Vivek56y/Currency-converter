@@ -1,5 +1,4 @@
-// Currency Converter JavaScript
-const accessKey = "0122506e1800e74ee508800bd93beb89"; 
+// Currency Converter JavaScript - Using free API
 const fromCurr = document.querySelector("#from-currency");
 const toCurr = document.querySelector("#to-currency");
 const dropdowns = document.querySelectorAll(".dropdown select");
@@ -123,7 +122,7 @@ async function handleConversion(evt) {
     setLoadingState(true);
     
     try {
-        const url = `https://api.exchangerate.host/convert?access_key=${accessKey}&from=${fromCurr.value}&to=${toCurr.value}&amount=${amountValue}`;
+        const url = `https://open.er-api.com/v6/latest/${fromCurr.value}`;
         
         let response = await fetch(url);
         
@@ -133,20 +132,24 @@ async function handleConversion(evt) {
         
         let data = await response.json();
         
-        if (!data.success) {
-            throw new Error(data.error?.info || 'Conversion failed');
+        if (data.result !== 'success') {
+            throw new Error(data.error || 'Conversion failed');
         }
         
+        // Calculate conversion
+        const rate = data.rates[toCurr.value];
+        const convertedAmount = amountValue * rate;
+        
         // Display the result
-        displayResult(data, amountValue);
+        displayResult(convertedAmount, rate, amountValue);
         
     } catch (error) {
         console.error("Error fetching exchange rate:", error);
         showError(`Failed to get exchange rate: ${error.message}`);
         
         // Fallback to cached rate if available
-        if (localStorage.getItem(`rate_${fromCurr.value}_${toCurr.value}`)) {
-            const cachedRate = localStorage.getItem(`rate_${fromCurr.value}_${toCurr.value}`);
+        const cachedRate = localStorage.getItem(`rate_${fromCurr.value}_${toCurr.value}`);
+        if (cachedRate) {
             const convertedAmount = (amountValue * parseFloat(cachedRate)).toFixed(4);
             msg.innerText = `${amountValue} ${fromCurr.value} = ${convertedAmount} ${toCurr.value} (Cached)`;
             rateInfo.innerText = 'Using cached exchange rate';
@@ -157,10 +160,7 @@ async function handleConversion(evt) {
 }
 
 // Display conversion result
-function displayResult(data, amountValue) {
-    const convertedAmount = data.result;
-    const rate = data.info.rate;
-    
+function displayResult(convertedAmount, rate, amountValue) {
     // Cache the rate for offline use
     localStorage.setItem(`rate_${fromCurr.value}_${toCurr.value}`, rate);
     
@@ -179,13 +179,13 @@ function displayResult(data, amountValue) {
 // Update initial rate on page load
 async function updateInitialRate() {
     try {
-        const url = `https://api.exchangerate.host/convert?access_key=${accessKey}&from=${fromCurr.value}&to=${toCurr.value}&amount=1`;
+        const url = `https://open.er-api.com/v6/latest/${fromCurr.value}`;
         
         let response = await fetch(url);
         let data = await response.json();
         
-        if (data.success) {
-            const rate = data.info.rate;
+        if (data.result === 'success') {
+            const rate = data.rates[toCurr.value];
             const formattedRate = formatNumber(rate);
             rateInfo.innerText = `1 ${fromCurr.value} = ${formattedRate} ${toCurr.value}`;
             
