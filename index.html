@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currency Converter - Real-Time Exchange Rates</title>
+    <link href="cor.css" rel="stylesheet"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-content">
+            <h1 class="logo">💱 Currency Converter</h1>
+            <p class="tagline">Real-time currency exchange rates at your fingertips</p>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="converter-header">
+                <h2>Convert Currencies Instantly</h2>
+                <p>Get accurate exchange rates for over 100+ currencies worldwide</p>
+            </div>
+            
+            <form id="converter-form">
+                <div class="amount">
+                    <label for="amount">Enter Amount</label>
+                    <input type="number" id="amount" value="1" min="0" step="0.01" placeholder="0.00"/>
+                </div>
+                
+                <div class="dropdown">
+                    <div class="from">
+                        <label for="from-currency">From</label>
+                        <div class="select-container">
+                            <img src="https://flagsapi.com/US/flat/64.png" alt="US Flag">
+                            <select id="from-currency" name="from"></select>
+                        </div>
+                    </div>
+                    
+                    <div class="swap-button-container">
+                        <button type="button" id="swap-currencies" class="swap-btn" title="Swap currencies">
+                            ⇄
+                        </button>
+                    </div>
+                    
+                    <div class="to">
+                        <label for="to-currency">To</label>
+                        <div class="select-container">
+                            <img src="https://flagsapi.com/IN/flat/64.png" alt="India Flag">
+                            <select id="to-currency" name="to"></select>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="result-section">
+                    <div class="msg" id="conversion-result">1 USD = 86.5845 INR</div>
+                    <div class="exchange-rate-info" id="rate-info"></div>
+                </div>
+                
+                <button type="submit" class="convert-btn">
+                    <span class="btn-text">Convert Now</span>
+                    <span class="btn-loader" style="display: none;">Converting...</span>
+                </button>
+            </form>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About This Converter</h3>
+                <p>Professional currency converter built with modern web technologies. Provides real-time exchange rates powered by Open Exchange Rate API.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Developer</h3>
+                <p>Created by Vivek Yadav</p>
+                <p>© 2026 Currency Converter. All rights reserved.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Features</h3>
+                <ul>
+                    <li>100+ Currencies Supported</li>
+                    <li>Real-time Exchange Rates</li>
+                    <li>Beautiful UI/UX Design</li>
+                    <li>Mobile Responsive</li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <script src="list.js"></script>
+    <script src="cur.js"></script>
+</body>
+</html>
