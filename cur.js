@@ -1,15 +1,39 @@
 // Currency Converter JavaScript - Using free API
-const fromCurr = document.querySelector("#from-currency");
-const toCurr = document.querySelector("#to-currency");
-const dropdowns = document.querySelectorAll(".dropdown select");
-const btn = document.querySelector("#converter-form");
-const msg = document.querySelector("#conversion-result");
-const rateInfo = document.querySelector("#rate-info");
-const swapBtn = document.querySelector("#swap-currencies");
-const amountInput = document.querySelector("#amount");
+console.log('Currency converter script loading...');
 
-// Initialize the converter
+// Global variables
+let fromCurr, toCurr, dropdowns, btn, msg, rateInfo, swapBtn, amountInput;
+
+// Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM loaded, initializing converter...');
+    
+    // Get all required elements
+    fromCurr = document.querySelector("#from-currency");
+    toCurr = document.querySelector("#to-currency");
+    dropdowns = document.querySelectorAll(".dropdown select");
+    btn = document.querySelector("#converter-form");
+    msg = document.querySelector("#conversion-result");
+    rateInfo = document.querySelector("#rate-info");
+    swapBtn = document.querySelector("#swap-currencies");
+    amountInput = document.querySelector("#amount");
+    
+    if (!fromCurr || !toCurr || !btn || !msg || !rateInfo || !swapBtn || !amountInput) {
+        console.error('Missing required elements:', {
+            fromCurr: !!fromCurr,
+            toCurr: !!toCurr,
+            btn: !!btn,
+            msg: !!msg,
+            rateInfo: !!rateInfo,
+            swapBtn: !!swapBtn,
+            amountInput: !!amountInput
+        });
+        return;
+    }
+    
+    console.log('All elements found, setting up converter...');
+    
+    // Initialize the converter
     populateDropdowns();
     setupEventListeners();
     updateInitialRate();
@@ -17,6 +41,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Populate currency dropdowns
 function populateDropdowns() {
+    if (!dropdowns || !countryList) {
+        console.error('Dropdowns or countryList not available');
+        return;
+    }
+    
     for (let select of dropdowns) {
         for (let currCode in countryList) {
             let newOption = document.createElement("option"); 

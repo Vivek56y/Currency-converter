@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currency Converter - Simple Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #f0f0f0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>💱 Currency Converter</h1>
+        <p>Simple test version</p>
+        
+        <form id="converter-form">
+            <input type="number" id="amount" value="1" placeholder="Amount">
+            
+            <select id="from-currency">
+                <option value="USD">USD - US Dollar</option>
+                <option value="EUR">EUR - Euro</option>
+                <option value="GBP">GBP - British Pound</option>
+                <option value="INR">INR - Indian Rupee</option>
+            </select>
+            
+            <select id="to-currency">
+                <option value="EUR">EUR - Euro</option>
+                <option value="USD">USD - US Dollar</option>
+                <option value="GBP">GBP - British Pound</option>
+                <option value="INR">INR - Indian Rupee</option>
+            </select>
+            
+            <button type="submit">Convert</button>
+        </form>
+        
+        <div class="result" id="result">
+            Enter an amount and click Convert
+        </div>
+    </div>
+
+    <script>
+        console.log('Simple converter loaded');
+        
+        document.getElementById('converter-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const amount = document.getElementById('amount').value;
+            const from = document.getElementById('from-currency').value;
+            const to = document.getElementById('to-currency').value;
+            const result = document.getElementById('result');
+            
+            result.innerHTML = 'Converting...';
+            
+            try {
+                const response = await fetch(`https://open.er-api.com/v6/latest/${from}`);
+                const data = await response.json();
+                
+                if (data.result === 'success') {
+                    const rate = data.rates[to];
+                    const converted = (amount * rate).toFixed(2);
+                    result.innerHTML = `<strong>${amount} ${from} = ${converted} ${to}</strong><br>Rate: 1 ${from} = ${rate} ${to}`;
+                } else {
+                    result.innerHTML = 'Error: ' + (data.error || 'Unknown error');
+                }
+            } catch (error) {
+                result.innerHTML = 'API Error: ' + error.message;
+            }
+        });
+    </script>
+</body>
+</html>
